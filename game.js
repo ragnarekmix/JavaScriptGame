@@ -22,7 +22,7 @@ var sprites = new Image();
 sprites.src = "images/sprites.png";
 
 var player;
-var enemy;
+var enemies = [];
 
 var isPlaying
 
@@ -58,13 +58,18 @@ function init() {
     clearBtn.addEventListener("click", clearRect, false);
 
     player = new Player();
-    enemy = new Enemy();
 
     drawBg();
     startLoop();
 
     document.addEventListener("keydown", checkKeyDown, false);
     document.addEventListener("keyup", checkKeyUp, false);
+};
+
+function spawnEnemy(count) {
+    for (var i = 0; i < count; i++) {
+        enemies[i] = new Enemy();
+    };
 };
 
 function loop() {
@@ -86,12 +91,17 @@ function stopLoop() {
 
 function draw() {
     player.draw();
-    enemy.draw();
+    clearCtxEn();
+    for (var i = 0; i < enemies.length; i++) {
+        enemies[i].draw();
+    };
 };
 
 function update() {
     player.update();
-    enemy.update();
+    for (var i = 0; i < enemies.length; i++) {
+        enemies[i].update();
+    };
 }
 
 function Player() {
@@ -107,17 +117,6 @@ function Player() {
     this.isDown = false;
     this.isLeft = false;
     this.isRight = false;
-};
-
-function Enemy() {
-    this.srcX = 30;
-    this.srcY = 0;
-    this.drawX = getRandomInt(gameWidth, gameWidth + 10);
-    this.drawY = getRandomInt(0, gameHeight);
-    this.width = 30;
-    this.height = 30;
-
-    this.speed = 1;
 };
 
 Player.prototype.draw = function() {
@@ -189,8 +188,18 @@ function checkKeyUp(e) {
     };
 }
 
+function Enemy() {
+    this.srcX = 30;
+    this.srcY = 0;
+    this.drawX = getRandomInt(gameWidth, gameWidth + gameWidth);
+    this.drawY = getRandomInt(0, gameHeight-30);
+    this.width = 30;
+    this.height = 30;
+
+    this.speed = 1;
+};
+
 Enemy.prototype.draw = function() {
-    clearCtxEn();
     ctxEn.drawImage(sprites, this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);
 };
@@ -198,8 +207,8 @@ Enemy.prototype.draw = function() {
 Enemy.prototype.update = function() {
     this.drawX -= this.speed;
     if (this.drawX < -30) {
-        this.drawX = getRandomInt(gameWidth, gameWidth + 10);
-        this.drawY = getRandomInt(0, gameHeight);
+        this.drawX = getRandomInt(gameWidth, gameWidth + gameWidth);
+        this.drawY = getRandomInt(0, gameHeight - 30);
     };
 };
 
