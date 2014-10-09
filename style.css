@@ -1,0 +1,19 @@
+body {
+    background-color: grey;
+}
+#map {
+    display: block;
+    background-color: white;
+    margin: 50px auto 0px;
+}
+#player, #enemy {
+    display: block;
+    margin: -500px auto 0px;
+}
+#gameName {
+    font-family: Courier;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    color: white;
+}
