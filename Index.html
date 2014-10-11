@@ -4,18 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>My Game</title>
-    <script src="src/game.js"></script>
-    <script src="src/BackGround.js"></script>
-    <script src="src/Player.js"></script>
-    <script src="src/Enemy.js"></script>
-    <script src="src/MouseControl.js"></script>
-    <script src="src/KeyboardControl.js"></script>
-    <script src="src/Helpers.js"></script>
+    <script src="src/main.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"></link>
 </head>
 
 
-<body>
+<body onload="init();">
     <div id="gameName">My First Game</div>
     <canvas id="map"></canvas>
     <canvas id="player"></canvas>

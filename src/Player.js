@@ -17,6 +17,7 @@ function Player() {
 
 Player.prototype.resetPlayer = function() {
     this.isImmortal = true;
+    this.health = 5;
     this.drawX = 0;
     this.drawY = gameHeight / 2;
 };

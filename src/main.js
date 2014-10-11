@@ -1,3 +1,18 @@
+function include(url) {
+  var script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript')
+  script.setAttribute('src', url);
+  document.getElementsByTagName('head').item(0).appendChild(script);
+}
+
+include('src/background.js');
+include('src/player.js');
+include('src/enemy.js');
+include('src/helpers.js');
+include('src/keyboardcontrol.js');
+include('src/mousecontrol.js');
+
+
 window.onload = init;
 
 var map;
@@ -28,7 +43,7 @@ var player;
 var enemies = [];
 
 var spawnInterval;
-var spawnTime = 10000;
+var spawnTime = 5000;
 var spawnAmount = 10;
 
 var mouseX;
