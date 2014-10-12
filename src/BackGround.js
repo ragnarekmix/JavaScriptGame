@@ -8,8 +8,8 @@ function moveBg() {
 };
 
 function drawBg() {
-    ctxMap.drawImage(background, 0, 0, 800, 500,
+    ctxMap.drawImage(background, 0, 0, 2048, 1024,
         mapX, 0, gameWidth, gameHeight);
-    ctxMap.drawImage(background1, 0, 0, 800, 500,
+    ctxMap.drawImage(background1, 0, 0, 2048, 1024,
         map1X, 0, gameWidth, gameHeight);
 };
