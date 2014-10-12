@@ -1,17 +1,8 @@
-function include(url) {
-    var script = document.createElement('script');
-    script.setAttribute('type', 'text/javascript')
-    script.setAttribute('src', url);
-    document.getElementsByTagName('head').item(0).appendChild(script);
-}
-
 include('src/background.js');
 include('src/player.js');
 include('src/enemy.js');
-include('src/helpers.js');
 include('src/keyboardcontrol.js');
 include('src/mousecontrol.js');
-
 
 window.onload = init;
 
@@ -55,12 +46,6 @@ var isPlaying;
 
 var mapX = 0;
 var map1X = gameWidth;
-
-var requestAnimFrame = window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame;
 
 function init() {
     map = document.getElementById("map");
@@ -148,4 +133,21 @@ function clearCtxEn() {
 function updateStats() {
     ctxStats.clearRect(0, 0, 800, 500);
     ctxStats.fillText("Health: " + player.health, 10, 20);
+};
+
+function startCreatingEnemies() {
+    stopCreatinEnemies();
+    spawnInterval = setInterval(function() {
+        spawnEnemy(spawnAmount);
+    }, spawnTime);
+};
+
+function stopCreatinEnemies() {
+    clearInterval(spawnInterval);
+};
+
+function spawnEnemy(count) {
+    for (var i = 0; i < count; i++) {
+        enemies[i] = new Enemy();
+    };
 };

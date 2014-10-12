@@ -3,19 +3,19 @@ function Player() {
     this.srcY = 0;
     this.drawX = 0;
     this.drawY = gameHeight / 2;
-    this.width = 30;
-    this.height = 30;
+    this.width = 32;
+    this.height = 32;
 
     this.health = 5;
     this.isImmortal = false;
 
     this.currentSpeedX = 0;
-    this.maxSpeedX = 5;
-    this.minSpeedX = -5;
+    this.maxSpeedX = 3;
+    this.minSpeedX = -3;
 
     this.currentSpeedY = 0;
-    this.maxSpeedY = 5;
-    this.minSpeedY = -5;
+    this.maxSpeedY = 3;
+    this.minSpeedY = -3;
 
     this.accel = 0.2;
     this.antiAccel = 0.05;
