@@ -44,10 +44,8 @@ function checkKeyUp(e) {
 
 window.onkeydown = function(event) {
     KEYS[event.which] = true;
-    console.log('push ' + event.which);
-}
+};
 
 window.onkeyup = function(event) {
     KEYS[event.which] = false;
-    console.log('unpush ' + event.which);
-}
+};

@@ -9,23 +9,20 @@ function Player() {
     this.health = 5;
     this.isImmortal = false;
 
-    this.speed = 5;
-    this.maxspeed = 5;
-    this.minspeed = -3;
-    this.cspeed = 0;
-    this.accel = 0.3;
-    this.backaccel = 0.2;
-    this.antiaccel = 0.1;
-    
-    this.isUp = false;
-    this.isDown = false;
-    this.isLeft = false;
-    this.isRight = false;
+    this.currentSpeedX = 0;
+    this.maxSpeedX = 5;
+    this.minSpeedX = -5;
+
+    this.currentSpeedY = 0;
+    this.maxSpeedY = 5;
+    this.minSpeedY = -5;
+
+    this.accel = 0.2;
+    this.antiAccel = 0.05;
 };
 
 Player.prototype.resetPlayer = function() {
-    this.isImmortal = true;
-    this.health = 5;
+    this.health -= 1;
     this.drawX = 0;
     this.drawY = gameHeight / 2;
 };
@@ -37,21 +34,16 @@ Player.prototype.draw = function() {
 };
 
 Player.prototype.update = function() {
-    if (this.health <= 0) {
-        this.resetPlayer();
-    };
     this.doNotLetPlayerGoOutOfTheBorders();
     this.checkTheCollision();
-    this.choseDirection();
+    this.move();
 };
 
 Player.prototype.checkTheCollision = function() {
     for (var i = 0; i < enemies.length; i++) {
-        if (this.drawX >= enemies[i].drawX &&
-            this.drawY >= enemies[i].drawY &&
-            this.drawX <= enemies[i].drawX + enemies[i].width &&
-            this.drawY <= enemies[i].drawY + enemies[i].height && !this.isImmortal) {
-            this.health--;
+        if (ifCollisionWith(this, enemies[i])) {
+            if (!this.isImmortal)
+                this.resetPlayer();
             console.log('collision');
         };
     };
@@ -65,45 +57,42 @@ Player.prototype.doNotLetPlayerGoOutOfTheBorders = function() {
 
 };
 
-Player.prototype.choseDirection = function() {
-    if (this.isUp)
-        this.drawY -= this.speed;
-    if (this.isDown)
-        this.drawY += this.speed;
-    if (this.isLeft)
-        this.drawX -= this.speed;
-    if (this.isRight)
-        this.drawX += this.speed;
-};
-
-Player.prototype.keydown = function(KEYS) {
-    if (window.KEYS[65] === true) {
-        this.angle -= 0.1;
-        this.drawPlayer();
-    }
-    if (window.KEYS[68] === true) {
-        this.angle += 0.1;
-        this.drawPlayer();
-    }
-
-    if (window.KEYS[87] === true) {
-
-        if (this.cspeed < this.maxspeed) {
-            this.cspeed += this.accel;
-        } else {
-            this.cspeed = this.maxspeed;
-        }
-    } else if (window.KEYS[83] === true) {
-        if (this.cspeed > this.minspeed) {
-            this.cspeed -= this.accel;
-        } else {
-            this.cspeed = this.minspeed;
-        }
+Player.prototype.move = function(KEYS) {
+    if (window.KEYS[65] === true) { //65 = A, Back
+        if (this.currentSpeedX > this.minSpeedX)
+            this.currentSpeedX -= this.accel;
+        else
+            this.currentSpeedX = this.minSpeedX;
+    } else if (window.KEYS[68] === true) { //68 = D, Forward
+        if (this.currentSpeedX < this.maxSpeedX)
+            this.currentSpeedX += this.accel;
+        else
+            this.currentSpeedX = this.maxSpeedX;
     } else {
-        if (this.cspeed > 0) {
-            this.cspeed -= this.antiaccel;
-        } else if (this.cspeed < 0) {
-            this.cspeed += this.antiaccel;
-        }
+        if (this.currentSpeedX > 0)
+            this.currentSpeedX -= this.antiAccel;
+        else if (this.currentSpeedX < 0)
+            this.currentSpeedX += this.antiAccel;
+
     }
+
+    if (window.KEYS[87] === true) { //87 = W, Up
+        if (this.currentSpeedY > this.minSpeedY)
+            this.currentSpeedY -= this.accel;
+        else
+            this.currentSpeedY = this.minSpeedY;
+    } else if (window.KEYS[83] === true) { //83 = S, Down
+        if (this.currentSpeedY < this.maxSpeedY)
+            this.currentSpeedY += this.accel;
+        else
+            this.currentSpeedY = this.maxSpeedY;
+    } else {
+        if (this.currentSpeedY > 0)
+            this.currentSpeedY -= this.antiAccel;
+        else if (this.currentSpeedY < 0)
+            this.currentSpeedY += this.antiAccel;
+    }
+
+    this.drawX += this.currentSpeedX;
+    this.drawY += this.currentSpeedY;
 };
