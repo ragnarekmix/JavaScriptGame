@@ -1,5 +1,6 @@
 include('src/background.js');
 include('src/player.js');
+include('src/bullet.js');
 include('src/enemy.js');
 include('src/keyboardcontrol.js');
 include('src/mousecontrol.js');

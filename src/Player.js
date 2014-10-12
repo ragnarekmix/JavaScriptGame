@@ -19,6 +19,9 @@ function Player() {
 
     this.accel = 0.2;
     this.antiAccel = 0.05;
+
+    this.fireRate = 300;
+    this.fireRateTimer = false;
 };
 
 Player.prototype.resetPlayer = function() {
@@ -42,8 +45,10 @@ Player.prototype.update = function() {
 Player.prototype.checkTheCollision = function() {
     for (var i = 0; i < enemies.length; i++) {
         if (ifCollisionWith(this, enemies[i])) {
-            if (!this.isImmortal)
+            if (!this.isImmortal) {
                 this.resetPlayer();
+                enemies[i].destroy();
+            }
             console.log('collision');
         };
     };
@@ -56,6 +61,23 @@ Player.prototype.doNotLetPlayerGoOutOfTheBorders = function() {
     if (this.drawY > gameHeight - this.height - 5) this.drawY = gameHeight - this.height - 5;
 
 };
+
+
+Player.prototype.fire = function() {
+    if (this.fireRateTimer == false) {
+        this.fireRateTimer = true;
+        setTimeout(function(obj) {
+            obj.stopFireDelay();
+        }, this.fireRate, this);
+        console.log('fire');
+
+        //var Bullet = new BulletObj(this.x, this.y, this.angle);
+    }
+}
+
+Player.prototype.stopFireDelay = function() {
+    this.fireRateTimer = false;
+}
 
 Player.prototype.move = function(KEYS) {
     if (window.KEYS[65] === true) { //65 = A, Back
@@ -95,4 +117,9 @@ Player.prototype.move = function(KEYS) {
 
     this.drawX += this.currentSpeedX;
     this.drawY += this.currentSpeedY;
+
+
+    if (window.KEYS[32] === true) {
+        this.fire();
+    }
 };
