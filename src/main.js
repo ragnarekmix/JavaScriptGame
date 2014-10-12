@@ -1,8 +1,8 @@
 function include(url) {
-  var script = document.createElement('script');
-  script.setAttribute('type', 'text/javascript')
-  script.setAttribute('src', url);
-  document.getElementsByTagName('head').item(0).appendChild(script);
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript')
+    script.setAttribute('src', url);
+    document.getElementsByTagName('head').item(0).appendChild(script);
 }
 
 include('src/background.js');
@@ -40,6 +40,7 @@ var sprites = new Image();
 sprites.src = "images/sprites.png";
 
 var player;
+var KEYS = [];
 var enemies = [];
 
 var spawnInterval;

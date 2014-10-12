@@ -8,7 +8,15 @@ function Player() {
 
     this.health = 5;
     this.isImmortal = false;
+
     this.speed = 5;
+    this.maxspeed = 5;
+    this.minspeed = -3;
+    this.cspeed = 0;
+    this.accel = 0.3;
+    this.backaccel = 0.2;
+    this.antiaccel = 0.1;
+    
     this.isUp = false;
     this.isDown = false;
     this.isLeft = false;
@@ -32,22 +40,29 @@ Player.prototype.update = function() {
     if (this.health <= 0) {
         this.resetPlayer();
     };
+    this.doNotLetPlayerGoOutOfTheBorders();
+    this.checkTheCollision();
+    this.choseDirection();
+};
 
-    if (this.drawX < 5) this.drawX = 5;
-    if (this.drawX > gameWidth - this.width - 5) this.drawX = gameWidth - this.width - 5;
-    if (this.drawY < 5) this.drawY = 5;
-    if (this.drawY > gameHeight - this.height - 5) this.drawY = gameHeight - this.height - 5;
-
+Player.prototype.checkTheCollision = function() {
     for (var i = 0; i < enemies.length; i++) {
         if (this.drawX >= enemies[i].drawX &&
             this.drawY >= enemies[i].drawY &&
             this.drawX <= enemies[i].drawX + enemies[i].width &&
             this.drawY <= enemies[i].drawY + enemies[i].height && !this.isImmortal) {
             this.health--;
+            console.log('collision');
         };
     };
+};
 
-    this.choseDirection();
+Player.prototype.doNotLetPlayerGoOutOfTheBorders = function() {
+    if (this.drawX < 5) this.drawX = 5;
+    if (this.drawX > gameWidth - this.width - 5) this.drawX = gameWidth - this.width - 5;
+    if (this.drawY < 5) this.drawY = 5;
+    if (this.drawY > gameHeight - this.height - 5) this.drawY = gameHeight - this.height - 5;
+
 };
 
 Player.prototype.choseDirection = function() {
@@ -59,4 +74,36 @@ Player.prototype.choseDirection = function() {
         this.drawX -= this.speed;
     if (this.isRight)
         this.drawX += this.speed;
+};
+
+Player.prototype.keydown = function(KEYS) {
+    if (window.KEYS[65] === true) {
+        this.angle -= 0.1;
+        this.drawPlayer();
+    }
+    if (window.KEYS[68] === true) {
+        this.angle += 0.1;
+        this.drawPlayer();
+    }
+
+    if (window.KEYS[87] === true) {
+
+        if (this.cspeed < this.maxspeed) {
+            this.cspeed += this.accel;
+        } else {
+            this.cspeed = this.maxspeed;
+        }
+    } else if (window.KEYS[83] === true) {
+        if (this.cspeed > this.minspeed) {
+            this.cspeed -= this.accel;
+        } else {
+            this.cspeed = this.minspeed;
+        }
+    } else {
+        if (this.cspeed > 0) {
+            this.cspeed -= this.antiaccel;
+        } else if (this.cspeed < 0) {
+            this.cspeed += this.antiaccel;
+        }
+    }
 };
