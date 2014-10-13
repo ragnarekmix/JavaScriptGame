@@ -24,15 +24,9 @@ function Player() {
     this.fireRateTimer = false;
 };
 
-Player.prototype.resetPlayer = function() {
-    this.health -= 1;
-    this.drawX = 0;
-    this.drawY = gameHeight / 2;
-};
-
 Player.prototype.draw = function() {
     clearCtxPl();
-    ctxPl.drawImage(sprites, this.srcX, this.srcY, this.width, this.height,
+    ctxPl.drawImage(resources.get('images/sprites.png'), this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);
 };
 
@@ -40,6 +34,12 @@ Player.prototype.update = function() {
     this.doNotLetPlayerGoOutOfTheBorders();
     this.checkTheCollision();
     this.move();
+};
+
+Player.prototype.resetPlayer = function() {
+    this.health -= 1;
+    this.drawX = 0;
+    this.drawY = gameHeight / 2;
 };
 
 Player.prototype.checkTheCollision = function() {

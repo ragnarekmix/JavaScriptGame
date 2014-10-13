@@ -1,6 +1,7 @@
 var Bullets = [];
 var BullTemp = [];
-var BulletObj = function(x, y, angle) {
+
+function Bullet(x, y, angle) {
     this.bspeed = 7;
     this.x = x + 11 + Math.cos(angle) * 20;
     this.y = y + 11 + Math.sin(angle) * 20;

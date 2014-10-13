@@ -3,9 +3,16 @@ include('src/player.js');
 include('src/bullet.js');
 include('src/enemy.js');
 include('src/keyboardcontrol.js');
-include('src/mousecontrol.js');
 
-window.onload = init;
+resources.load([
+    'images/sprites.png',
+    'images/background.jpg',
+    'images/background1.jpg',
+    'images/explosn.bmp'
+]);
+resources.onReady(init);
+
+//window.onload = init;
 
 var map;
 var ctxMap;
@@ -22,15 +29,6 @@ var ctxStats;
 var gameWidth = 800;
 var gameHeight = 500;
 
-var background = new Image();
-background.src = "images/background.jpg";
-
-var background1 = new Image();
-background1.src = "images/background1.jpg";
-
-var sprites = new Image();
-sprites.src = "images/sprites.png";
-
 var player;
 var KEYS = [];
 var enemies = [];
@@ -39,14 +37,7 @@ var spawnInterval;
 var spawnTime = 5000;
 var spawnAmount = 10;
 
-var mouseX;
-var mouseY;
-var mouseControl = false;
-
 var isPlaying;
-
-var mapX = 0;
-var map1X = gameWidth;
 
 function init() {
     map = document.getElementById("map");
@@ -80,11 +71,6 @@ function init() {
 
     startLoop();
     updateStats();
-
-    document.addEventListener("mousemove", mouseMove, false);
-    document.addEventListener("click", mouseClick, false);
-    document.addEventListener("keydown", checkKeyDown, false);
-    document.addEventListener("keyup", checkKeyUp, false);
 };
 
 function loop() {
