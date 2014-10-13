@@ -1,7 +1,7 @@
 function Player() {
     this.srcX = 0;
     this.srcY = 0;
-    this.drawX = 0;
+    this.drawX = 25;
     this.drawY = gameHeight / 2;
     this.width = 32;
     this.height = 32;
@@ -44,9 +44,9 @@ Player.prototype.update = function() {
 
 Player.prototype.checkTheCollision = function() {
     for (var i = 0; i < enemies.length; i++) {
-        if (ifCollisionWith(this, enemies[i])) {
+        if (ifCollisionBetwen(this, enemies[i])) {
             if (!this.isImmortal) {
-                this.resetPlayer();
+                //this.resetPlayer();
                 enemies[i].destroy();
             }
             console.log('collision');
@@ -55,11 +55,14 @@ Player.prototype.checkTheCollision = function() {
 };
 
 Player.prototype.doNotLetPlayerGoOutOfTheBorders = function() {
-    if (this.drawX < 5) this.drawX = 5;
-    if (this.drawX > gameWidth - this.width - 5) this.drawX = gameWidth - this.width - 5;
-    if (this.drawY < 5) this.drawY = 5;
-    if (this.drawY > gameHeight - this.height - 5) this.drawY = gameHeight - this.height - 5;
-
+    if (this.drawX < 5)
+        this.currentSpeedX = 1;
+    if (this.drawX > gameWidth - this.width - 5)
+        this.currentSpeedX = -1;
+    if (this.drawY < 5)
+        this.currentSpeedY = 1;
+    if (this.drawY > gameHeight - this.height - 5)
+        this.currentSpeedY = -1;
 };
 
 
