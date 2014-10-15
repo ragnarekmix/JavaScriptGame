@@ -17,10 +17,12 @@ Enemy.prototype.update = function() {
 };
 
 Enemy.prototype.destroy = function() {
-    enemies.splice(enemies.indexOf(this), 1)
+    Enemies.splice(Enemies.indexOf(this), 1)
 };
 
 Enemy.prototype.draw = function() {
-    ctxEn.drawImage(resources.get('images/sprites.png'), this.srcX, this.srcY, this.width, this.height,
+    ctxEn.clearRect(0, 0, gameWidth, gameHeight);
+    ctxEn.drawImage(resources.get('images/sprites.png'), 
+        this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);
 };

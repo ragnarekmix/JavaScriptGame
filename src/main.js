@@ -12,15 +12,16 @@ resources.load([
 ]);
 resources.onReady(init);
 
-//window.onload = init;
-
-var map;
+var mapCanvas;
 var ctxMap;
 
-var pl;
+var playerCanvas;
 var ctxPl;
 
-var en;
+var bulletCanvas;
+var ctxBullet;
+
+var enemyCanvas;
 var ctxEn;
 
 var stats;
@@ -30,8 +31,9 @@ var gameWidth = 800;
 var gameHeight = 500;
 
 var player;
+var Enemies = [];
+var Bullets = [];
 var KEYS = [];
-var enemies = [];
 
 var spawnInterval;
 var spawnTime = 5000;
@@ -40,26 +42,33 @@ var spawnAmount = 10;
 var isPlaying;
 
 function init() {
-    map = document.getElementById("map");
-    ctxMap = map.getContext("2d");
+    mapCanvas = document.getElementById("map");
+    ctxMap = mapCanvas.getContext("2d");
 
-    pl = document.getElementById("player");
-    ctxPl = pl.getContext("2d");
+    playerCanvas = document.getElementById("player");
+    ctxPl = playerCanvas.getContext("2d");
 
-    en = document.getElementById("enemy");
-    ctxEn = en.getContext("2d");
+    bulletCanvas = document.getElementById("bullet");
+    ctxBullet = bulletCanvas.getContext("2d");
+
+    enemyCanvas = document.getElementById("enemy");
+    ctxEn = enemyCanvas.getContext("2d");
 
     stats = document.getElementById("stats");
     ctxStats = stats.getContext("2d");
 
-    map.width = gameWidth;
-    map.height = gameHeight;
+    mapCanvas.width = gameWidth;
+    mapCanvas.height = gameHeight;
 
-    pl.width = gameWidth;
-    pl.height = gameHeight;
+    playerCanvas.width = gameWidth;
+    playerCanvas.height = gameHeight;
 
-    en.width = gameWidth;
-    en.height = gameHeight;
+
+    bulletCanvas.width = gameWidth;
+    bulletCanvas.height = gameHeight;
+
+    enemyCanvas.width = gameWidth;
+    enemyCanvas.height = gameHeight;
 
     stats.width = gameWidth;
     stats.height = gameHeight;
@@ -93,10 +102,12 @@ function stopLoop() {
 
 function draw() {
     player.draw();
-    clearCtxEn();
-    for (var i = 0; i < enemies.length; i++) {
-        enemies[i].draw();
-    };
+    for (var i = 0; i < Enemies.length; i++) {
+        Enemies[i].draw();
+    }
+    for (var i = 0; i < Bullets.length; i++) {
+        Bullets[i].draw();
+    }
 };
 
 function update() {
@@ -104,22 +115,18 @@ function update() {
     drawBg();
     updateStats();
     player.update();
-    for (var i = 0; i < enemies.length; i++) {
-        enemies[i].update();
-    };
+    for (var i = 0; i < Enemies.length; i++) {
+        Enemies[i].update();
+    }
+    for (var i = 0; i < Bullets.length; i++) {
+        Bullets[i].update();
+    }
 }
-
-function clearCtxPl() {
-    ctxPl.clearRect(0, 0, gameWidth, gameHeight);
-};
-
-function clearCtxEn() {
-    ctxEn.clearRect(0, 0, gameWidth, gameHeight);
-};
 
 function updateStats() {
     ctxStats.clearRect(0, 0, 800, 500);
-    ctxStats.fillText("Health: " + player.health, 10, 20);
+    ctxStats.fillStyle = 'white';
+    ctxStats.fillText("Health: " + player.health + " Enemies: " + Enemies.length, 10, 20);
 };
 
 function startCreatingEnemies() {
@@ -135,6 +142,6 @@ function stopCreatinEnemies() {
 
 function spawnEnemy(count) {
     for (var i = 0; i < count; i++) {
-        enemies[i] = new Enemy();
+        Enemies[i] = new Enemy();
     };
 };

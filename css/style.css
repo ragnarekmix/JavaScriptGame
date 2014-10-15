@@ -9,7 +9,7 @@ canvas {
 #map {
     border: 2px solid #fff;
 }
-#player, #enemy, #stats {
+#player, #bullet, #enemy, #stats {
     display: block;
     margin: -500px auto 0px;
 }

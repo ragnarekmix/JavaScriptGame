@@ -25,7 +25,7 @@ function Player() {
 };
 
 Player.prototype.draw = function() {
-    clearCtxPl();
+    ctxPl.clearRect(0, 0, gameWidth, gameHeight);
     ctxPl.drawImage(resources.get('images/sprites.png'), this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);
 };
@@ -37,17 +37,21 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.resetPlayer = function() {
-    this.health -= 1;
-    this.drawX = 0;
+    this.health = 5;
+    console.log('Death');
+    this.drawX = 25;
     this.drawY = gameHeight / 2;
 };
 
 Player.prototype.checkTheCollision = function() {
-    for (var i = 0; i < enemies.length; i++) {
-        if (ifCollisionBetwen(this, enemies[i])) {
+    for (var i = 0; i < Enemies.length; i++) {
+        if (ifCollisionBetwen(this, Enemies[i])) {
             if (!this.isImmortal) {
-                //this.resetPlayer();
-                enemies[i].destroy();
+                if (this.health == 1)
+                    this.resetPlayer();
+                else
+                    this.health -= 1;
+                Enemies[i].destroy();
             }
             console.log('collision');
         };
@@ -74,7 +78,7 @@ Player.prototype.fire = function() {
         }, this.fireRate, this);
         console.log('fire');
 
-        //var Bullet = new BulletObj(this.x, this.y, this.angle);
+        var bull = new Bullet(this.drawX, this.drawY - this.height / 2, 0);
     }
 }
 
