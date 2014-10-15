@@ -21,7 +21,6 @@ Enemy.prototype.destroy = function() {
 };
 
 Enemy.prototype.draw = function() {
-    ctxEn.clearRect(0, 0, gameWidth, gameHeight);
     ctxEn.drawImage(resources.get('images/sprites.png'), 
         this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);

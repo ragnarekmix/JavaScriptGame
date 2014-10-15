@@ -84,6 +84,7 @@ function init() {
 
 function loop() {
     if (isPlaying) {
+        ClearCanvases()
         draw();
         update();
         requestAnimFrame(loop);
@@ -99,6 +100,12 @@ function startLoop() {
 function stopLoop() {
     isPlaying = false;
 };
+
+function ClearCanvases() {
+    ctxPl.clearRect(0, 0, gameWidth, gameHeight);
+    ctxEn.clearRect(0, 0, gameWidth, gameHeight);
+    ctxBullet.clearRect(0, 0, gameWidth, gameHeight);
+}
 
 function draw() {
     player.draw();

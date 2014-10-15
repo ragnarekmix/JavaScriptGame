@@ -25,7 +25,6 @@ function Player() {
 };
 
 Player.prototype.draw = function() {
-    ctxPl.clearRect(0, 0, gameWidth, gameHeight);
     ctxPl.drawImage(resources.get('images/sprites.png'), this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);
 };
@@ -78,7 +77,8 @@ Player.prototype.fire = function() {
         }, this.fireRate, this);
         console.log('fire');
 
-        var bull = new Bullet(this.drawX, this.drawY - this.height / 2, 0);
+        var bull = new Bullet(this.drawX + this.width / 2, this.drawY, 0.1);
+        var bull = new Bullet(this.drawX + this.width / 2, this.drawY, -0.1);
     }
 }
 

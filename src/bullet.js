@@ -1,7 +1,7 @@
 function Bullet(x, y, angle) {
     this.bspeed = 7;
-    this.drawX = x + 11 + Math.cos(angle) * 20;
-    this.drawY = y + 11 + Math.sin(angle) * 20;
+    this.drawX = x;
+    this.drawY = y;
     this.dx = Math.cos(angle) * this.bspeed;
     this.dy = Math.sin(angle) * this.bspeed;
     this.srcX = 0;
@@ -28,7 +28,6 @@ Bullet.prototype.destroy = function() {
 };
 
 Bullet.prototype.draw = function() {
-    ctxBullet.clearRect(0, 0, gameWidth, gameHeight);
     ctxBullet.drawImage(resources.get('images/sprites.png'), 
         this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);
