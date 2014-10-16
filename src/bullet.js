@@ -1,14 +1,14 @@
 function Bullet(x, y, angle) {
-    this.bspeed = 7;
+    this.speed = 7;
+    this.damage = 1;
     this.drawX = x;
     this.drawY = y;
-    this.dx = Math.cos(angle) * this.bspeed;
-    this.dy = Math.sin(angle) * this.bspeed;
+    this.dx = Math.cos(angle) * this.speed;
+    this.dy = Math.sin(angle) * this.speed;
     this.srcX = 0;
     this.srcY = 224;
     this.width = 32;
     this.height = 32;
-
 
     Bullets.push(this);
 };
@@ -19,7 +19,12 @@ Bullet.prototype.update = function() {
 
     if (this.drawX < -5 || this.drawX > gameWidth + 5 || this.drawY < -5 || this.drawY > gameHeight + 5)
         this.destroy();
-
+    for (var i = 0; i < Enemies.length; i++) {
+        if (isCollisionBerwen(this, Enemies[i], 0, Enemies[i].width / 2)) {
+            this.destroy();
+            Enemies[i].health -= this.damage;
+        };
+    };
     //TODO: Collision
 };
 
@@ -28,7 +33,7 @@ Bullet.prototype.destroy = function() {
 };
 
 Bullet.prototype.draw = function() {
-    ctxBullet.drawImage(resources.get('images/sprites.png'), 
+    ctxBullet.drawImage(resources.get('images/sprites.png'),
         this.srcX, this.srcY, this.width, this.height,
         this.drawX, this.drawY, this.width, this.height);
 };

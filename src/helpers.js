@@ -9,20 +9,14 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-function ifCollisionBetwen(object1, object2) {
-    var xColl = false;
-    var yColl = false;
+function isCollisionBerwen(object1, object2, r1, r2) {
+    var x1 = object1.drawX + object1.width / 2;
+    var y1 = object1.drawY + object1.height / 2;
+    var x2 = object2.drawX + object2.width / 2;
+    var y2 = object2.drawY + object2.height / 2;
 
-    if ((object1.drawX + object1.width >= object2.drawX) && (object1.drawX <= object2.drawX + object2.width)) 
-        xColl = true;
-    if ((object1.drawY + object1.height >= object2.drawY) && (object1.drawY <= object2.drawY + object2.height)) 
-        yColl = true;
-
-    if (xColl & yColl)
-        return true;
-
-    return false;
-};
+    return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)) <= (r1 + r2) * 0.7;
+}
 
 window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||

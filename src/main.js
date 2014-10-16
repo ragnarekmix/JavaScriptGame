@@ -34,6 +34,7 @@ var player;
 var Enemies = [];
 var Bullets = [];
 var KEYS = [];
+var Score = 0;
 
 var spawnInterval;
 var spawnTime = 5000;
@@ -133,7 +134,7 @@ function update() {
 function updateStats() {
     ctxStats.clearRect(0, 0, 800, 500);
     ctxStats.fillStyle = 'white';
-    ctxStats.fillText("Health: " + player.health + " Enemies: " + Enemies.length, 10, 20);
+    ctxStats.fillText("Health: " + player.health + " Score: " + Score, 10, 20);
 };
 
 function startCreatingEnemies() {

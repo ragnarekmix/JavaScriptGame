@@ -44,7 +44,7 @@ Player.prototype.resetPlayer = function() {
 
 Player.prototype.checkTheCollision = function() {
     for (var i = 0; i < Enemies.length; i++) {
-        if (ifCollisionBetwen(this, Enemies[i])) {
+        if (isCollisionBerwen(this, Enemies[i], this.width / 2, Enemies[i].width / 2)) {
             if (!this.isImmortal) {
                 if (this.health == 1)
                     this.resetPlayer();
@@ -52,7 +52,6 @@ Player.prototype.checkTheCollision = function() {
                     this.health -= 1;
                 Enemies[i].destroy();
             }
-            console.log('collision');
         };
     };
 };
@@ -68,6 +67,10 @@ Player.prototype.doNotLetPlayerGoOutOfTheBorders = function() {
         this.currentSpeedY = -1;
 };
 
+Player.prototype.startAutofire = function() {
+
+}
+
 
 Player.prototype.fire = function() {
     if (this.fireRateTimer == false) {
@@ -75,7 +78,6 @@ Player.prototype.fire = function() {
         setTimeout(function(obj) {
             obj.stopFireDelay();
         }, this.fireRate, this);
-        console.log('fire');
 
         var bull = new Bullet(this.drawX + this.width / 2, this.drawY, 0.1);
         var bull = new Bullet(this.drawX + this.width / 2, this.drawY, -0.1);
