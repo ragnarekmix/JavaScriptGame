@@ -1,13 +1,15 @@
 function Enemy() {
     this.srcX = 32;
     this.srcY = 0;
+    this.srcWidth = 32;
+    this.srcHeight = 32
     this.drawX = getRandomInt(gameWidth, gameWidth + gameWidth);
     this.drawY = getRandomInt(0, gameHeight - 32);
-    this.width = 32;
-    this.height = 32;
-    this.health = 1;
+    this.width = 40;
+    this.height = 40;
+    this.health = 5;
     this.scoreCost = 10;
-    this.speed = 2.5;
+    this.speed = 1;
 };
 
 Enemy.prototype.update = function() {
@@ -26,6 +28,6 @@ Enemy.prototype.destroy = function() {
 
 Enemy.prototype.draw = function() {
     ctxEn.drawImage(resources.get('images/sprites.png'),
-        this.srcX, this.srcY, this.width, this.height,
+        this.srcX, this.srcY, this.srcWidth, this.srcHeight,
         this.drawX, this.drawY, this.width, this.height);
 };

@@ -20,6 +20,8 @@ function Player() {
     this.accel = 0.2;
     this.antiAccel = 0.05;
 
+    this.weaponLevel = 3;
+    this.weaponCount = 5;
     this.fireRate = 300;
     this.fireRateTimer = false;
 };
@@ -36,6 +38,7 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.resetPlayer = function() {
+    Score -= Score * 0.1;
     this.health = 5;
     console.log('Death');
     this.drawX = 25;
@@ -44,7 +47,7 @@ Player.prototype.resetPlayer = function() {
 
 Player.prototype.checkTheCollision = function() {
     for (var i = 0; i < Enemies.length; i++) {
-        if (isCollisionBerwen(this, Enemies[i], this.width / 2, Enemies[i].width / 2)) {
+        if (isCollisionBetwen(this, Enemies[i], this.width / 2, Enemies[i].width / 2)) {
             if (!this.isImmortal) {
                 if (this.health == 1)
                     this.resetPlayer();
@@ -67,11 +70,6 @@ Player.prototype.doNotLetPlayerGoOutOfTheBorders = function() {
         this.currentSpeedY = -1;
 };
 
-Player.prototype.startAutofire = function() {
-
-}
-
-
 Player.prototype.fire = function() {
     if (this.fireRateTimer == false) {
         this.fireRateTimer = true;
@@ -79,8 +77,7 @@ Player.prototype.fire = function() {
             obj.stopFireDelay();
         }, this.fireRate, this);
 
-        var bull = new Bullet(this.drawX + this.width / 2, this.drawY, 0.1);
-        var bull = new Bullet(this.drawX + this.width / 2, this.drawY, -0.1);
+        bulletFactory.fire(this.weaponCount, this.weaponLevel);
     }
 }
 

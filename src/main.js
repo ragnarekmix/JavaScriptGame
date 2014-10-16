@@ -1,6 +1,7 @@
 include('src/background.js');
 include('src/player.js');
 include('src/bullet.js');
+include('src/bulletfactory.js');
 include('src/enemy.js');
 include('src/keyboardcontrol.js');
 
@@ -27,18 +28,22 @@ var ctxEn;
 var stats;
 var ctxStats;
 
-var gameWidth = 800;
-var gameHeight = 500;
+var gameWidth;
+var gameHeight
+
+var map1X;
+var map2X;
 
 var player;
 var Enemies = [];
 var Bullets = [];
+var bulletFactory;
 var KEYS = [];
-var Score = 0;
+var Score;
 
 var spawnInterval;
-var spawnTime = 5000;
-var spawnAmount = 10;
+var spawnTime
+var spawnAmount;
 
 var isPlaying;
 
@@ -58,6 +63,12 @@ function init() {
     stats = document.getElementById("stats");
     ctxStats = stats.getContext("2d");
 
+    gameWidth = 800;
+    gameHeight = 500;
+
+    map1X = 0;
+    map2X = gameWidth;
+
     mapCanvas.width = gameWidth;
     mapCanvas.height = gameHeight;
 
@@ -74,10 +85,15 @@ function init() {
     stats.width = gameWidth;
     stats.height = gameHeight;
 
-    ctxStats.fillStile = "#3D3D3D";
-    ctxStats.font = "bold 15pt Arial";
+    ctxStats.fillStyle = 'white';
+    ctxStats.font = 'bold 15pt Arial';
 
     player = new Player();
+    bulletFactory = new BulletFactory();
+    Score = 0;
+
+    spawnTime = 5000;
+    spawnAmount = 10;
 
     startLoop();
     updateStats();
@@ -133,7 +149,6 @@ function update() {
 
 function updateStats() {
     ctxStats.clearRect(0, 0, 800, 500);
-    ctxStats.fillStyle = 'white';
     ctxStats.fillText("Health: " + player.health + " Score: " + Score, 10, 20);
 };
 
@@ -150,6 +165,6 @@ function stopCreatinEnemies() {
 
 function spawnEnemy(count) {
     for (var i = 0; i < count; i++) {
-        Enemies[i] = new Enemy();
+        Enemies.push(new Enemy());
     };
 };

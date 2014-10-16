@@ -1,6 +1,3 @@
-var map1X = 0;
-var map2X = gameWidth;
-
 function moveBg() {
 
     var velocity = 2;

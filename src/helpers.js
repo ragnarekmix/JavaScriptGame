@@ -9,7 +9,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-function isCollisionBerwen(object1, object2, r1, r2) {
+function isCollisionBetwen(object1, object2, r1, r2) {
     var x1 = object1.drawX + object1.width / 2;
     var y1 = object1.drawY + object1.height / 2;
     var x2 = object2.drawX + object2.width / 2;
