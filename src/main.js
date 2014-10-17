@@ -149,7 +149,7 @@ function update() {
 
 function updateStats() {
     ctxStats.clearRect(0, 0, 800, 500);
-    ctxStats.fillText("Health: " + player.health + " Score: " + Score, 10, 20);
+    ctxStats.fillText("Health: " + player.health + " Score: " + Math.floor(Score), 10, 20);
 };
 
 function startCreatingEnemies() {
