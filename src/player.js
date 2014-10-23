@@ -94,46 +94,66 @@ Player.prototype.stopFireDelay = function() {
 }
 
 Player.prototype.move = function(KEYS) {
-    if (window.KEYS[65] === true) { //65 = A, Back
-        if (this.currentSpeedX > this.minSpeedX)
-            this.currentSpeedX -= this.accel;
-        else
-            this.currentSpeedX = this.minSpeedX;
-    } else if (window.KEYS[68] === true) { //68 = D, Forward
-        if (this.currentSpeedX < this.maxSpeedX)
-            this.currentSpeedX += this.accel;
-        else
-            this.currentSpeedX = this.maxSpeedX;
-    } else {
-        if (this.currentSpeedX > 0)
-            this.currentSpeedX -= this.antiAccel;
-        else if (this.currentSpeedX < 0)
-            this.currentSpeedX += this.antiAccel;
+    if (window.KEYS[68] === true || window.KEYS[39] === true)
+        player.forvard();
+    else if (window.KEYS[65] === true || window.KEYS[37] === true)
+        player.back();
+    else
+        player.decelerationX();
 
-    }
-
-    if (window.KEYS[87] === true) { //87 = W, Up
-        if (this.currentSpeedY > this.minSpeedY)
-            this.currentSpeedY -= this.accel;
-        else
-            this.currentSpeedY = this.minSpeedY;
-    } else if (window.KEYS[83] === true) { //83 = S, Down
-        if (this.currentSpeedY < this.maxSpeedY)
-            this.currentSpeedY += this.accel;
-        else
-            this.currentSpeedY = this.maxSpeedY;
-    } else {
-        if (this.currentSpeedY > 0)
-            this.currentSpeedY -= this.antiAccel;
-        else if (this.currentSpeedY < 0)
-            this.currentSpeedY += this.antiAccel;
-    }
+    if (window.KEYS[87] === true || window.KEYS[38] === true)
+        player.up();
+    else if (window.KEYS[83] === true || window.KEYS[40] === true)
+        player.down();
+    else
+        player.decelerationY();
 
     this.drawX += this.currentSpeedX;
     this.drawY += this.currentSpeedY;
 
-
     if (window.KEYS[32] === true) {
         this.toggleFire();
     }
+};
+
+Player.prototype.forvard = function() {
+    if (this.currentSpeedX < this.maxSpeedX)
+        this.currentSpeedX += this.accel;
+    else
+        this.currentSpeedX = this.maxSpeedX;
+};
+
+Player.prototype.back = function() {
+    if (this.currentSpeedX > this.minSpeedX)
+        this.currentSpeedX -= this.accel;
+    else
+        this.currentSpeedX = this.minSpeedX;
+};
+
+Player.prototype.decelerationX = function() {
+    if (this.currentSpeedX > 0)
+        this.currentSpeedX -= this.antiAccel;
+    else if (this.currentSpeedX < 0)
+        this.currentSpeedX += this.antiAccel;
+};
+
+Player.prototype.up = function() {
+    if (this.currentSpeedY > this.minSpeedY)
+        this.currentSpeedY -= this.accel;
+    else
+        this.currentSpeedY = this.minSpeedY;
+};
+
+Player.prototype.down = function(first_argument) {
+    if (this.currentSpeedY < this.maxSpeedY)
+        this.currentSpeedY += this.accel;
+    else
+        this.currentSpeedY = this.maxSpeedY;
+};
+
+Player.prototype.decelerationY = function() {
+    if (this.currentSpeedY > 0)
+        this.currentSpeedY -= this.antiAccel;
+    else if (this.currentSpeedY < 0)
+        this.currentSpeedY += this.antiAccel;
 };
