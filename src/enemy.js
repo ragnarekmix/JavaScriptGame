@@ -2,7 +2,7 @@ function Enemy() {
     this.srcX = 32;
     this.srcY = 0;
     this.srcWidth = 32;
-    this.srcHeight = 32
+    this.srcHeight = 32;
     this.drawX = getRandomInt(gameWidth, gameWidth + gameWidth);
     this.drawY = getRandomInt(0, gameHeight - 32);
     this.width = 40;
@@ -16,7 +16,7 @@ Enemy.prototype.update = function() {
     if (this.health <= 0) {
         Score += this.scoreCost;
         this.destroy();
-        Explosions.push(new Explosion(this.drawX + this.width / 2, this.drawY + this.height / 2))
+        Explosions.push(new Explosion(this.drawX, this.drawY))
     };
     if (this.drawX + this.width < 0)
         this.destroy();

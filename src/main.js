@@ -10,7 +10,7 @@ resources.load([
     'images/sprites.png',
     'images/background.jpg',
     'images/background1.jpg',
-    'images/explosn.bmp'
+    'images/explosn.png'
 ]);
 resources.onReady(init);
 
@@ -22,6 +22,9 @@ var ctxPl;
 
 var bulletCanvas;
 var ctxBullet;
+
+var explosionCanvas;
+var ctxExplosion;
 
 var enemyCanvas;
 var ctxEn;
@@ -59,6 +62,9 @@ function init() {
     bulletCanvas = document.getElementById("bullet");
     ctxBullet = bulletCanvas.getContext("2d");
 
+    explosionCanvas = document.getElementById("explosion");
+    ctxExplosion = explosionCanvas.getContext("2d");
+
     enemyCanvas = document.getElementById("enemy");
     ctxEn = enemyCanvas.getContext("2d");
 
@@ -77,9 +83,11 @@ function init() {
     playerCanvas.width = gameWidth;
     playerCanvas.height = gameHeight;
 
-
     bulletCanvas.width = gameWidth;
     bulletCanvas.height = gameHeight;
+
+    explosionCanvas.width = gameWidth;
+    explosionCanvas.height = gameHeight;
 
     enemyCanvas.width = gameWidth;
     enemyCanvas.height = gameHeight;
@@ -124,6 +132,7 @@ function ClearCanvases() {
     ctxPl.clearRect(0, 0, gameWidth, gameHeight);
     ctxEn.clearRect(0, 0, gameWidth, gameHeight);
     ctxBullet.clearRect(0, 0, gameWidth, gameHeight);
+    ctxExplosion.clearRect(0, 0, gameWidth, gameHeight);
 }
 
 function draw() {
@@ -133,6 +142,9 @@ function draw() {
     }
     for (var i = 0; i < Bullets.length; i++) {
         Bullets[i].draw();
+    }
+    for (var i = 0; i < Explosions.length; i++) {
+        Explosions[i].draw();
     }
 };
 
@@ -146,6 +158,9 @@ function update() {
     }
     for (var i = 0; i < Bullets.length; i++) {
         Bullets[i].update();
+    }
+    for (var i = 0; i < Explosions.length; i++) {
+        Explosions[i].update();
     }
 }
 

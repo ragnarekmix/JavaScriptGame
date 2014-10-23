@@ -40,7 +40,6 @@ Player.prototype.update = function() {
 Player.prototype.resetPlayer = function() {
     Score -= Score * 0.1;
     this.health = 5;
-    console.log('Death');
     this.drawX = 25;
     this.drawY = gameHeight / 2;
 };
