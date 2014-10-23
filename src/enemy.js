@@ -16,7 +16,7 @@ Enemy.prototype.update = function() {
     if (this.health <= 0) {
         Score += this.scoreCost;
         this.destroy();
-        Explosions.push(new Explosion(this.drawX, this.drawY))
+        Explosions.push(new Explosion(this.drawX, this.drawY, this.speed))
     };
     if (this.drawX + this.width < 0)
         this.destroy();

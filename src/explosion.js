@@ -1,4 +1,4 @@
-function Explosion(x, y) {
+function Explosion(x, y, speed) {
     this.srcX = 0;
     this.srcY = 0;
     this.srcWidth = 39;
@@ -7,6 +7,7 @@ function Explosion(x, y) {
     this.drawY = y;
     this.width = 32;
     this.height = 32;
+    this.speed = speed;
 
     this.frame = 0;
     this.frames = 12;
@@ -22,6 +23,7 @@ Explosion.prototype.updateFrame = function() {
 };
 
 Explosion.prototype.update = function() {
+    this.drawX -= this.speed;
     this.srcX = this.srcWidth * this.frame;
     if (this.frame > frames)
         this.destroy();
