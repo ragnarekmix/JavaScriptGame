@@ -24,6 +24,11 @@ function Player() {
     this.weaponCount = 5;
     this.fireRate = 300;
     this.fireRateTimer = false;
+
+    this.autoFire = false;
+    this.autoFireInterval = setInterval(function(obj) {
+        obj.fire();
+    }, this.fireRate, this);
 };
 
 Player.prototype.draw = function() {
@@ -69,18 +74,22 @@ Player.prototype.doNotLetPlayerGoOutOfTheBorders = function() {
         this.currentSpeedY = -1;
 };
 
-Player.prototype.fire = function() {
+Player.prototype.toggleFire = function() {
     if (this.fireRateTimer == false) {
         this.fireRateTimer = true;
         setTimeout(function(obj) {
             obj.stopFireDelay();
-        }, this.fireRate, this);
+        }, 300, this);
+    };
+};
 
+Player.prototype.fire = function() {
+    if (this.autoFire)
         bulletFactory.fire(this.weaponCount, this.weaponLevel);
-    }
 }
 
 Player.prototype.stopFireDelay = function() {
+    this.autoFire = !this.autoFire;
     this.fireRateTimer = false;
 }
 
@@ -125,6 +134,6 @@ Player.prototype.move = function(KEYS) {
 
 
     if (window.KEYS[32] === true) {
-        this.fire();
+        this.toggleFire();
     }
 };
