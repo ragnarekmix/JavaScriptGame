@@ -3,6 +3,7 @@ include('src/player.js');
 include('src/bullet.js');
 include('src/bulletfactory.js');
 include('src/enemy.js');
+include('src/explosion.js');
 include('src/keyboardcontrol.js');
 
 resources.load([
@@ -35,9 +36,10 @@ var map1X;
 var map2X;
 
 var player;
+var bulletFactory;
 var Enemies = [];
 var Bullets = [];
-var bulletFactory;
+var Explosions = [];
 var KEYS = [];
 var Score;
 
