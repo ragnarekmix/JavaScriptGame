@@ -3,10 +3,11 @@ function Enemy() {
     this.srcY = 0;
     this.srcWidth = 32;
     this.srcHeight = 32;
-    this.drawX = getRandomInt(gameWidth, gameWidth + gameWidth);
-    this.drawY = getRandomInt(0, gameHeight - 32);
     this.width = 40;
     this.height = 40;
+    this.drawX = getRandomInt(gameWidth, gameWidth + gameWidth);
+    this.drawY = getRandomInt(0, gameHeight - this.height);
+
     this.health = 5;
     this.scoreCost = 10;
     this.speed = 1;
