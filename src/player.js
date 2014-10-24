@@ -43,6 +43,7 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.resetPlayer = function() {
+    Explosions.push(new Explosion(this.drawX, this.drawY, this.currentSpeedX));
     Score -= Score * 0.1;
     this.health = 5;
     this.drawX = 25;
