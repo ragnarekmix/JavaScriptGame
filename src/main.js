@@ -4,6 +4,7 @@ include('src/bullet.js');
 include('src/bulletfactory.js');
 include('src/enemy.js');
 include('src/explosion.js');
+include('src/explosionFactory.js');
 include('src/keyboardcontrol.js');
 
 resources.load([
@@ -40,6 +41,7 @@ var map2X;
 
 var player;
 var bulletFactory;
+var explosionFactory;
 var Enemies = [];
 var Bullets = [];
 var Explosions = [];
@@ -100,6 +102,7 @@ function init() {
 
     player = new Player();
     bulletFactory = new BulletFactory();
+    explosionFactory = new ExplosionFactory();
     Score = 0;
 
     spawnTime = 5000;

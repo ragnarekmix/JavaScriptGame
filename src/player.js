@@ -6,6 +6,8 @@ function Player() {
     this.width = 32;
     this.height = 32;
 
+    this.type = 'player'
+
     this.health = 5;
     this.isImmortal = false;
 
@@ -20,8 +22,8 @@ function Player() {
     this.accel = 0.2;
     this.antiAccel = 0.05;
 
-    this.weaponLevel = 3;
-    this.weaponCount = 5;
+    this.weaponLevel = 1;
+    this.weaponCount = 1;
     this.fireRate = 300;
     this.fireRateTimer = false;
 
@@ -43,7 +45,7 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.resetPlayer = function() {
-    Explosions.push(new Explosion(this.drawX, this.drawY, this.currentSpeedX));
+    explosionFactory.bang(this);
     Score -= Score * 0.1;
     this.health = 5;
     this.drawX = 25;
@@ -112,9 +114,8 @@ Player.prototype.move = function(KEYS) {
     this.drawX += this.currentSpeedX;
     this.drawY += this.currentSpeedY;
 
-    if (window.KEYS[32] === true) {
+    if (window.KEYS[32] === true)
         this.toggleFire();
-    }
 };
 
 Player.prototype.forvard = function() {
@@ -145,7 +146,7 @@ Player.prototype.up = function() {
         this.currentSpeedY = this.minSpeedY;
 };
 
-Player.prototype.down = function(first_argument) {
+Player.prototype.down = function() {
     if (this.currentSpeedY < this.maxSpeedY)
         this.currentSpeedY += this.accel;
     else

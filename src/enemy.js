@@ -7,7 +7,7 @@ function Enemy() {
     this.height = 40;
     this.drawX = getRandomInt(gameWidth, gameWidth + gameWidth);
     this.drawY = getRandomInt(0, gameHeight - this.height);
-
+    this.type = 'enemy'
     this.health = 5;
     this.scoreCost = 10;
     this.speed = 1;
@@ -25,7 +25,7 @@ Enemy.prototype.update = function() {
 
 Enemy.prototype.destroy = function() {
     Enemies.splice(Enemies.indexOf(this), 1)
-    Explosions.push(new Explosion(this.drawX, this.drawY, this.speed));
+    explosionFactory.bang(this);
 };
 
 Enemy.prototype.draw = function() {

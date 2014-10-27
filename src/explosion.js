@@ -1,16 +1,17 @@
-function Explosion(x, y, speed) {
-    this.srcX = 0;
-    this.srcY = 0;
-    this.srcWidth = 39;
-    this.srcHeight = 37;
-    this.drawX = x;
-    this.drawY = y;
-    this.width = 32;
-    this.height = 32;
+function Explosion(srcX, srcY, srcWidth, srcHeight, drawX, drawY, width, height, speed, frame, framesCount, src) {
+    this.srcX = srcX;
+    this.srcY = srcY;
+    this.srcWidth = srcWidth;
+    this.srcHeight = srcHeight;
+    this.src = src;
+    this.drawX = drawX;
+    this.drawY = drawY;
+    this.width = width;
+    this.height = height;
     this.speed = speed;
 
-    this.frame = 0;
-    this.frames = 12;
+    this.frame = frame;
+    this.framesCount = framesCount;
     this.frameTime = 50;
 
     this.frameInterval = setInterval(function(obj) {
@@ -25,17 +26,17 @@ Explosion.prototype.updateFrame = function() {
 Explosion.prototype.update = function() {
     this.drawX -= this.speed;
     this.srcX = this.srcWidth * this.frame;
-    if (this.frame > frames)
+    if (this.frame > this.framesCount)
         this.destroy();
 };
 
 Explosion.prototype.destroy = function() {
-    explosions.splice(explosions.indexOf(this), 1)
+    Explosions.splice(Explosions.indexOf(this), 1)
     clearInterval(this.frameInterval);
 };
 
 Explosion.prototype.draw = function() {
-    ctxExplosion.drawImage(resources.get('images/explosn.png'),
+    ctxExplosion.drawImage(resources.get(this.src),
         this.srcX, this.srcY, this.srcWidth, this.srcHeight,
         this.drawX, this.drawY, this.width, this.height);
 };

@@ -10,6 +10,7 @@ function Bullet(x, y, srcX, srcY, angle, damage, damageRadious) {
     this.srcY = srcY;
     this.width = 32;
     this.height = 32;
+    this.type = 'bullet';
 };
 
 Bullet.prototype.update = function() {
@@ -21,13 +22,14 @@ Bullet.prototype.update = function() {
     for (var i = 0; i < Enemies.length; i++) {
         if (isCollisionBetwen(this, Enemies[i], this.damageRadious, Enemies[i].width / 2)) {
             this.destroy();
+            explosionFactory.bang(this);
             Enemies[i].health -= this.damage;
         };
     };
 };
 
 Bullet.prototype.destroy = function() {
-    Bullets.splice(Bullets.indexOf(this), 1)
+    Bullets.splice(Bullets.indexOf(this), 1);
 };
 
 Bullet.prototype.draw = function() {
