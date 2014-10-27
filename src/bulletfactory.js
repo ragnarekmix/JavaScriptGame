@@ -27,7 +27,7 @@ BulletFactory.prototype.fire = function(count, level) {
 
 BulletFactory.prototype.madeNewBullet = function(angle, level) {
     var x = player.drawX + player.width / 2;
-    var y = player.drawY;
+    var y = player.drawY + 3;
     if (level === 1)
         this.bullets.push(new Bullet(x, y, 0, 224, angle, 1, 1));
     if (level === 2)

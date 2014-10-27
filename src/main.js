@@ -9,6 +9,7 @@ include('src/keyboardcontrol.js');
 
 resources.load([
     'images/sprites.png',
+    'images/player.png',
     'images/background.jpg',
     'images/background1.jpg',
     'images/explosn.png'

@@ -1,10 +1,12 @@
 function Player() {
     this.srcX = 0;
     this.srcY = 0;
+    this.srcWidth = 347;
+    this.srcHeight = 394;
     this.drawX = 25;
     this.drawY = gameHeight / 2;
-    this.width = 32;
-    this.height = 32;
+    this.width = 40;
+    this.height = 40;
 
     this.type = 'player'
 
@@ -34,7 +36,7 @@ function Player() {
 };
 
 Player.prototype.draw = function() {
-    ctxPl.drawImage(resources.get('images/sprites.png'), this.srcX, this.srcY, this.width, this.height,
+    ctxPl.drawImage(resources.get('images/player.png'), this.srcX, this.srcY, this.srcWidth, this.srcHeight,
         this.drawX, this.drawY, this.width, this.height);
 };
 
