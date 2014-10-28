@@ -89,7 +89,7 @@ Player.prototype.toggleFire = function() {
 };
 
 Player.prototype.fire = function() {
-    if (this.autoFire)
+    if (this.autoFire && isPlaying)
         bulletFactory.fire(this.weaponCount, this.weaponLevel);
 }
 

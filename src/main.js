@@ -16,6 +16,13 @@ resources.load([
 ]);
 resources.onReady(init);
 
+window.onblur = function() {
+    pauseGame();
+};
+window.onfocus = function() {
+    pauseGame();
+};
+
 var mapCanvas;
 var ctxMap;
 
@@ -131,6 +138,16 @@ function startLoop() {
 function stopLoop() {
     isPlaying = false;
 };
+
+function pauseGame() {
+    if (isPlaying) {
+        stopLoop();
+    } else {
+        startLoop();
+        startLoop();
+    }
+
+}
 
 function ClearCanvases() {
     ctxPl.clearRect(0, 0, gameWidth, gameHeight);
