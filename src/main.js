@@ -17,10 +17,7 @@ resources.load([
 resources.onReady(init);
 
 window.onblur = function() {
-    pauseGame();
-};
-window.onfocus = function() {
-    pauseGame();
+    stopLoop();
 };
 
 var mapCanvas;
@@ -137,6 +134,8 @@ function startLoop() {
 
 function stopLoop() {
     isPlaying = false;
+    ctxStats.fillText("PAUSE", 360, 260);
+    stopCreatinEnemies();
 };
 
 function pauseGame() {
